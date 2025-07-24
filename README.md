@@ -23,5 +23,5 @@ This is a full-stack web application that extracts invoice data (PDF/Image) usin
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/AkramMostafaa/invoice-ocr-mini-app.git
-cd invoice-ocr-mini-app
+git clone https://github.com/AkramMostafaa/Ejada.InvoiceOCRExtraction.git
+cd Ejada.InvoiceOCRExtraction
