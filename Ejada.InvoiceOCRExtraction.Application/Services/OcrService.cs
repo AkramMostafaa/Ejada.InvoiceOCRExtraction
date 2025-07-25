@@ -1,4 +1,4 @@
-﻿using Ejada.InvoiceOCRExtraction.Application.Dtos;
+using Ejada.InvoiceOCRExtraction.Application.Dtos;
 using Ejada.InvoiceOCRExtraction.Application.Helpers;
 using Ejada.InvoiceOCRExtraction.Application.IServices;
 using Ejada.InvoiceOCRExtraction.Application.Shared;
@@ -42,8 +42,9 @@ public class OcrService : IOcrService
             using var page = engine.Process(img);
 
             var extractedText = page.GetText();
+      Console.WriteLine("OCR TEXT: " + extractedText);
 
-            var parsedText = InvoiceParserHelper.ParseText(extractedText);
+      var parsedText = InvoiceParserHelper.ParseText(extractedText);
             return GeneralResponse<InvoiceDto>.SuccessResponse(parsedText, "Invoice parsed successfully.");
         }
         catch (Exception ex)

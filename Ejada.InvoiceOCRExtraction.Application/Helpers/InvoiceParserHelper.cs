@@ -1,4 +1,4 @@
-﻿using Ejada.InvoiceOCRExtraction.Application.Dtos;
+using Ejada.InvoiceOCRExtraction.Application.Dtos;
 using System.Text.RegularExpressions;
 
 namespace Ejada.InvoiceOCRExtraction.Application.Helpers;
@@ -54,27 +54,31 @@ public static class InvoiceParserHelper
         return dto;
     }
 
-    private static bool TryExtractLabeledValue(string line, string label, Action<string> assign)
+  private static bool TryExtractLabeledValue(string line, string[] labels, Action<string> assign)
+  {
+    foreach (var label in labels)
     {
-        if (line.StartsWith(label, StringComparison.OrdinalIgnoreCase))
-        {
-            var value = ExtractValue(line);
-            assign(value);
-            return true;
-        }
-        return false;
+      if (line.StartsWith(label, StringComparison.OrdinalIgnoreCase))
+      {
+        var value = ExtractValue(line);
+        assign(value);
+        return true;
+      }
     }
+    return false;
+  }
 
 
 
-    /// <summary>
-    /// Normalizes an array of raw lines by trimming whitespace and merging lines where necessary.
-    /// This preprocessing step helps ensure that the invoice data is structured correctly before 
-    /// further extraction.
-    /// </summary>
-    /// <param name="rawLines">An array of raw string lines representing the invoice text.</param>
-    /// <returns>A list of normalized lines, each prepared for parsing.</returns>
-    private static List<string> NormalizeLines(string[] rawLines)
+
+  /// <summary>
+  /// Normalizes an array of raw lines by trimming whitespace and merging lines where necessary.
+  /// This preprocessing step helps ensure that the invoice data is structured correctly before 
+  /// further extraction.
+  /// </summary>
+  /// <param name="rawLines">An array of raw string lines representing the invoice text.</param>
+  /// <returns>A list of normalized lines, each prepared for parsing.</returns>
+  private static List<string> NormalizeLines(string[] rawLines)
     {
         return rawLines
             .Select(line => line.Trim())
